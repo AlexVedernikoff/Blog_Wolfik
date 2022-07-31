@@ -1,0 +1,25 @@
+.app_header {
+    height: 80px;
+    background-color: #fff;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 9px 22px 15px;
+}
+
+.header_name {
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 28px;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.button-logOut {
+    width: 109px;
+    height: 51px;
+    border: 1px solid rgba(0, 0, 0, 0.75);
+    box-sizing: border-box;
+    border-radius: 5px;
+    cursor: pointer;
+}
