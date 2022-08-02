@@ -4,7 +4,7 @@ import { Alert } from 'antd';
 
 import FormProfile from '../Profile/FormProfile';
 import { SuccessMessage } from '../SuccessMessage/SuccessMessage';
-import { fetchUserUpdate } from '../../store/userSlice';
+import { fetchUserUpdate, errorNull } from '../../store/userSlice';
 
 const Profile = () => {
     const useStateUser = () => {
@@ -46,28 +46,25 @@ const Profile = () => {
                 setIsSuccess(true);
             } catch (err) {
                 setIsSuccess(false);
-                console.log('234 error ', err);
             }
         });
     };
 
-    // при закрытии сообщения об успехе
     const atCloseSuccessMessage = () => {
         setIsSuccess(false);
     };
-
-    // сообщение об успешной авторизации
+    const onCloseMessage = () => {
+        dispath(errorNull());
+    };
     const successMessage = isSuccess && (
         <SuccessMessage description="Profile edit successfully!" closable={true} closingAlert={atCloseSuccessMessage} />
     );
-
+    const errorAlert = error && <Alert description={error} type="error" showIcon closable onClose={() => onCloseMessage()} />;
     const profile = !successMessage && <FormProfile editProfile={editProfile} email={email} username={username} />;
 
     return (
         <>
-            {error
-                ? <Alert className='alert' message='Something has gone wrong' type="error" showIcon style={{ height: '50px' }} />
-                : null}
+            {errorAlert}
             {successMessage}
             {profile}
         </>

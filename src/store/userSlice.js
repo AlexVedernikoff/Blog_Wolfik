@@ -23,7 +23,6 @@ export const fetchUserRegistration = createAsyncThunk(
 
             return response.json();
         } catch (error) {
-            console.log('ERROR',error);
             return rejectWithValue(error.message);
         }
     }
@@ -99,7 +98,6 @@ const userSlice = createSlice({
     name: 'user',
     initialState: {
         userData: null,
-        status: null,
         error: null,
     },
 
@@ -107,7 +105,6 @@ const userSlice = createSlice({
         // разлогинивание пользователя
         logOutUser(state) {
             state.userData = null;
-            state.status = null;
             state.error = null;
         },
 
@@ -120,20 +117,17 @@ const userSlice = createSlice({
     extraReducers: {
         // fetchUserRegistration
         [fetchUserRegistration.pending]: (state) => {
-            state.status = 'loading';
             state.error = null;
         },
         [fetchUserRegistration.fulfilled]: (state, action) => {
             // если получен user
             if (action.payload.user) {
-                state.status = 'resolved';
                 // записывает юзера в стор
                 state.userData = action.payload.user;
                 return;
             }
             // если получены ошибки
             if (action.payload.errors) {
-                state.status = 'rejected';
                 // создает строку ошибки
                 let errStr = '';
 
@@ -153,25 +147,21 @@ const userSlice = createSlice({
             }
         },
         [fetchUserRegistration.rejected]: (state, action) => {
-            state.status = 'rejected';
             state.error = action.payload;
         },
 
         // fetchUserLogIn
         [fetchUserLogIn.pending]: (state) => {
-            state.status = 'loading';
             state.error = null;
         },
         [fetchUserLogIn.fulfilled]: (state, action) => {
             // если получен user
             if (action.payload.user) {
-                state.status = 'resolved';
                 state.userData = action.payload.user;
                 return;
             }
             // если получены ошибки
             if (action.payload.errors) {
-                state.status = 'rejected';
 
                 // создает строку ошибки
                 let errStr = '';
@@ -188,40 +178,33 @@ const userSlice = createSlice({
             }
         },
         [fetchUserLogIn.rejected]: (state, action) => {
-            state.status = 'rejected';
             state.error = action.payload;
         },
 
         // fetchUserSave
         [fetchUserSave.pending]: (state) => {
-            state.status = 'loading';
             state.error = null;
         },
         [fetchUserSave.fulfilled]: (state, action) => {
-            state.status = 'resolved';
             state.userData = action.payload.user;
         },
         [fetchUserSave.rejected]: (state, action) => {
-            state.status = 'rejected';
             state.error = action.payload;
         },
 
         // fetchUserUpdate
         [fetchUserUpdate.pending]: (state) => {
-            state.status = 'loading';
             state.error = null;
         },
         [fetchUserUpdate.fulfilled]: (state, action) => {
             // если получен user
             if (action.payload.user) {
-                state.status = 'resolved';
                 // записывает юзера в стор
                 state.userData = action.payload.user;
                 return;
             }
             // если получены ошибки
             if (action.payload.errors) {
-                state.status = 'rejected';
 
                 // создает строку ошибки
                 let errStr = '';
@@ -242,7 +225,6 @@ const userSlice = createSlice({
             }
         },
         [fetchUserUpdate.rejected]: (state, action) => {
-            state.status = 'rejected';
             state.error = action.payload;
         },
     },

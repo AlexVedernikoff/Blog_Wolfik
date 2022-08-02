@@ -5,8 +5,6 @@ import classes from './NewArticle.module.scss';
 
 function NewArticle({ title, transferData, articleTitle, description, articleBody, tagList }) {
 
-    console.log('createArticle!', transferData);
-    console.log('title!', title);
     const newFilds = [
         {
             name: ['title'],

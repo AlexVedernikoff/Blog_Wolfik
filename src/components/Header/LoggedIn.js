@@ -16,14 +16,8 @@ function LoggedIn() {
     const avatar = image || photo;
 
     const logOut = () => {
-        try {
-            // удаляет token из localStorage
-            localStorage.removeItem('token');
-            // и очищает данные пользователя в сторе
-            dispath(logOutUser());
-        } catch (e) {
-            console.log(e);
-        }
+        localStorage.removeItem('token');
+        dispath(logOutUser());
     };
     return (
         <div className='header_btn'>

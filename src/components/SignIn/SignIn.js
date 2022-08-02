@@ -4,7 +4,7 @@ import { Alert } from 'antd';
 import { useEffect } from 'react';
 
 import { SuccessMessage } from '../SuccessMessage/SuccessMessage';
-import { fetchUserLogIn } from '../../store/userSlice';
+import { fetchUserLogIn, errorNull } from '../../store/userSlice';
 
 import FormSignIn from './FormSignIn';
 
@@ -17,13 +17,8 @@ function SignIn() {
     const { error, userData } = useStateUser();
 
     useEffect(() => {
-        try {
-            // если есть днные о юзере, то сохраняет токен в хранилище
-            if (userData && userData !== null) {
-                localStorage.setItem('token', JSON.stringify(userData.token));
-            }
-        } catch (e) {
-            console.log(e);
+        if (userData && userData !== null) {
+            localStorage.setItem('token', JSON.stringify(userData.token));
         }
     }, [userData]);
 
@@ -34,15 +29,20 @@ function SignIn() {
         };
         dispath(fetchUserLogIn(newUser));
     };
-    
+
+    // при закрытии окна ошибки
+    const onCloseMessage = () => {
+        // обнуляет ошибку в сторе
+        dispath(errorNull());
+    };
+    // сообщение об ошибке
+    const errorAlert = error && <Alert description={error} type="error" showIcon closable onClose={() => onCloseMessage()} />;
     const successAlert = userData && <SuccessMessage description="Authorization was successful!" closable={false} />;
     const signInForm = !successAlert && <FormSignIn userLogin={userLogin} />;
 
     return (
         <>
-            {error
-                ? <Alert className='alert' message='Something has gone wrong' type="error" showIcon style={{ height: '50px' }} />
-                : null}
+            {errorAlert}
             {successAlert}
             {signInForm}
         </>

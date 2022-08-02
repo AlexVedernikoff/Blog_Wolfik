@@ -1,0 +1,25 @@
+
+.post_item {
+    display: grid;
+    grid-template-areas:
+        "title title title person photo"
+        "tag tag tag person photo"
+        ". . . button button"
+        "description description description description description"
+        "body body body body body";
+        
+    width: 941px;
+    overflow: hidden;
+    margin: 0 auto 26px;
+    padding: 15px 14px 24px 19px;
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
+    height: 800px;
+    grid-template-rows: 0.5fr 0.5fr 0.5fr 0.5fr 15fr;
+    grid-template-columns: 1fr 0.25fr 1fr 0.25fr 0.25fr;
+}
+
+.post_body{
+    grid-area: body;
+}

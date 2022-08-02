@@ -27,29 +27,6 @@
     text-align: center;
     z-index: 10;
 }
-
-.post_item {
-    display: grid;
-    grid-template-columns: 1fr 0.25fr 1fr 0.25fr 0.25fr;
-    grid-template-areas:
-        "title title title person photo"
-        "tag tag tag person photo"
-        ". . . button button"
-        "description description description description description";
-    width: 941px;
-    height: 140px;
-    margin: 0 auto 26px;
-    padding: 15px 14px 24px 19px;
-    background-color: #fff;
-    border-radius: 5px;
-    box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
-}
-
-.article_item {
-    height: 800px;
-    grid-template-rows: 0.5fr 0.5fr 0.5fr 0.5fr 15fr;
-}
-
 .ant-form {
     font-family: 'Roboto', sans-serif;
     width: 384px;
@@ -133,28 +110,6 @@
     border: 1px solid #b7eb8f;
 }
 
-.header_btn {
-    font-family: 'Inter', sans-serif;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-}
-
-.user-data__button {
-    height: 31px;
-    font-style: normal;
-    font-weight: normal;
-    font-size: 14px;
-    line-height: 22px;
-    padding: 0px 6px;
-    background: none;
-    cursor: pointer;
-    color: #52C41A;
-    border: 1px solid #52C41A;
-    box-sizing: border-box;
-    border-radius: 5px;
-}
-
 .user-data__wrapper-inner {
     padding: 0 27px;
     display: flex;
@@ -176,8 +131,6 @@
     height: 46px;
     border-radius: 50%;
 }
-
-
 
 .ant-form-article {
     width: 938px;

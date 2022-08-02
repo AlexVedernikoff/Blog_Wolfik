@@ -22,13 +22,9 @@ function App() {
     const { userData } = useStateUser();
 
     useEffect(() => {
-        try {
-            // если токен есть то получаем данные пользователя с его использованием
-            if (JSON.parse(localStorage.getItem('token'))) {
-                dispath(fetchUserSave(JSON.parse(localStorage.getItem('token'))));
-            }
-        } catch (e) {
-            console.log(e);
+        // если токен есть то получаем данные пользователя с его использованием
+        if (JSON.parse(localStorage.getItem('token'))) {
+            dispath(fetchUserSave(JSON.parse(localStorage.getItem('token'))));
         }
     }, [dispath]);
 

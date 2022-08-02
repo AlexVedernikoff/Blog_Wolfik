@@ -16,16 +16,12 @@ function CreateArticle() {
             tagList: val.tagList.map((el) => el.trim()).filter((el) => el && el !== ''),
         };
 
-        try {
-            postCreateArticle(newArticle, JSON.parse(localStorage.getItem('token')))
-                .then((res) => {
-                    if (res.article) {
-                        setSuccessAlert(true);
-                    }
-                });
-        } catch (err) {
-            console.log(err);
-        }
+        postCreateArticle(newArticle, JSON.parse(localStorage.getItem('token')))
+            .then((res) => {
+                if (res.article) {
+                    setSuccessAlert(true);
+                }
+            });
     };
 
     // при закрытии сообщения об успехе или ошибке

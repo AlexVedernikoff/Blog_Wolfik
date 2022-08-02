@@ -23,3 +23,25 @@
     border-radius: 5px;
     cursor: pointer;
 }
+
+.header_btn {
+    font-family: 'Inter', sans-serif;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.user-data__button {
+    height: 31px;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 22px;
+    padding: 0px 6px;
+    background: none;
+    cursor: pointer;
+    color: #52C41A;
+    border: 1px solid #52C41A;
+    box-sizing: border-box;
+    border-radius: 5px;
+}
