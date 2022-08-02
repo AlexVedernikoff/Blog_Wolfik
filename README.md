@@ -1,2 +1,2 @@
 VERCEL: 
-        https://blog-platform-eight-mu.vercel.app
+        https://blog-platform-wolfik25.vercel.app
