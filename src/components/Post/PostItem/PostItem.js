@@ -16,7 +16,7 @@ import classes from './PostItem.module.scss';
 export const PostItem = ({ post, controllerFlag, confirmDeletion }) => {
     const { title, favoritesCount, favorited, tagList, author, description, createdAt, slug } = post;
     const paramSlug = `/articles/${slug}`;
-    const tags = tagList.map((el, i) => el.length !== 0 && <Tag className='post_tag' key={i}> {el} </Tag>);
+    const tags = tagList.map((el, i) =>  <Tag className='post_tag' key={i}> {el} </Tag>);
     const authorAvatar = author.image;
     const avatar = authorAvatar === 'null' ? photo : authorAvatar;
     const token = JSON.parse(localStorage.getItem('token')) ? JSON.parse(localStorage.getItem('token')) : '';

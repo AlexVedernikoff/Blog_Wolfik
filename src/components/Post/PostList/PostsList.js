@@ -5,7 +5,7 @@ import { TailSpin } from 'react-loader-spinner';
 import { updateArticles } from '../../../services/Api';
 import { PostItem } from '../PostItem/PostItem';
 
-import classes from'./PostList.module.scss';
+import classes from './PostList.module.scss';
 
 export const PostsList = () => {
     const [post, setPost] = useState([]);
@@ -56,7 +56,7 @@ export const PostsList = () => {
                     : postlist
                 };
             </div>
-            <Pagination current={currentpage} showSizeChanger={false} total={totalArticles} onChange={onChangePage} />
+            <Pagination current={currentpage} showSizeChanger={false} total={totalArticles} onChange={onChangePage} className={ classes['ant-pagination']}/>
         </>
     );
 
