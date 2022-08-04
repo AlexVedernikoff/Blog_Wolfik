@@ -13,7 +13,6 @@ import { PostItem } from './PostItem/PostItem';
 
 export const PostFull = () => {
     const { slug } = useParams();
-    const token = JSON.parse(localStorage.getItem('token')) ? JSON.parse(localStorage.getItem('token')) : '';
     const useStateUser = () => {
         const stateUserst = useSelector((state) => state.user);
         return stateUserst;
@@ -27,12 +26,8 @@ export const PostFull = () => {
     const [isSuccess, setIsSuccess] = useState(false); // отобажение успех запроса
     const [controllerShow, setControllerShow] = useState(false);
 
-
-    // подтвердить удаление
     const confirmDeletion = () => {
-        // удаляет статью
-        deleteArticle(slug, token).then((res) => {
-            // если первый символ статуса 2 (OK)
+        deleteArticle(slug).then((res) => {
             if (String(res.status)[0] === '2') {
                 setIsSuccess(true);
             }
@@ -41,9 +36,8 @@ export const PostFull = () => {
 
     useEffect(() => {
         setLoading(true);
-        getPostFull(slug, token)
+        getPostFull(slug)
             .then((res) => {
-                // показывает контроллер если пользователь залогинен и username в стор сопадает с автором статьи
                 if (userData && userData.username === res.article.author.username) {
                     setControllerShow(true);
                 }
@@ -51,7 +45,7 @@ export const PostFull = () => {
                 setLoading(false);
                 setError(false);
             });
-    }, [slug, userData, token]);
+    }, [slug, userData]);
 
     const successMasege = isSuccess && (
         <SuccessMessage description="Article successfully removed!" closable={false} />

@@ -30,12 +30,10 @@ function SignIn() {
         dispath(fetchUserLogIn(newUser));
     };
 
-    // при закрытии окна ошибки
     const onCloseMessage = () => {
-        // обнуляет ошибку в сторе
         dispath(errorNull());
     };
-    // сообщение об ошибке
+    
     const errorAlert = error && <Alert description={error} type="error" showIcon closable onClose={() => onCloseMessage()} />;
     const successAlert = userData && <SuccessMessage description="Authorization was successful!" closable={false} />;
     const signInForm = !successAlert && <FormSignIn userLogin={userLogin} />;

@@ -12,6 +12,7 @@ import { Profile } from '../Profile/Profile';
 import { fetchUserSave } from '../../store/userSlice';
 import CreateArticle from '../Article/CreateArticle';
 import EditArticle from '../Article/EditArticle';
+import { baseRoute, articleRoute, signInRoute, signUpRoute, profileRoute, newArticleRoute, slugRoute, editRoute } from '../../constants';
 
 function App() {
     const useStateUser = () => {
@@ -22,7 +23,6 @@ function App() {
     const { userData } = useStateUser();
 
     useEffect(() => {
-        // если токен есть то получаем данные пользователя с его использованием
         if (JSON.parse(localStorage.getItem('token'))) {
             dispath(fetchUserSave(JSON.parse(localStorage.getItem('token'))));
         }
@@ -36,17 +36,17 @@ function App() {
                     <Header />
                 </header>
                 <main className='app_main'>
-                    <Route path='/' exact render={() => <Redirect to='/articles' />} />
-                    <Route path='/articles' component={PostsList} exact />
-                    <Route path='/articles/:slug' exact render={({ match }) => {
+                    <Route path={baseRoute} exact render={() => <Redirect to='/articles' />} />
+                    <Route path={articleRoute} component={PostsList} exact />
+                    <Route path={`${articleRoute}${slugRoute}`} exact render={({ match }) => {
                         const { id } = match.params;
                         return <PostFull itemId={id} />;
                     }} />
-                    <Route path="/sign-in" component={SignIn} exact />
-                    <Route path="/sign-up" component={SignUp} exact />
-                    <Route path="/profile" exact>{userData ? <Profile /> : <Redirect to={'/sign-in'} />}</Route>
-                    <Route path="/new-article" component={CreateArticle} exact />
-                    <Route path="/articles/:slug/edit" component={EditArticle} exact />
+                    <Route path={signInRoute} component={SignIn} exact />
+                    <Route path={signUpRoute} component={SignUp} exact />
+                    <Route path={profileRoute} exact>{userData ? <Profile /> : <Redirect to={'/sign-in'} />}</Route>
+                    <Route path={newArticleRoute} exact>{userData ? <CreateArticle /> : <Redirect to={'/sign-in'} />} </Route>
+                    <Route path={`${articleRoute}${slugRoute}${editRoute}`} component={EditArticle} exact />
                 </main>
             </div>
         </Router>

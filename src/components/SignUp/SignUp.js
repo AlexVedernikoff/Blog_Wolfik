@@ -17,7 +17,6 @@ function SignUp() {
     const { error,  userData} = useStateUser();
 
     useEffect(() => {
-        // если есть днные о юзере, то сохраняет токен в хранилище
         if (userData && userData !== null) {
             localStorage.setItem('token', JSON.stringify(userData.token));
         }

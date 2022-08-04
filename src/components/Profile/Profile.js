@@ -21,7 +21,6 @@ const Profile = () => {
     const [isSuccess, setIsSuccess] = useState(false);
 
     useEffect(() => {
-        // если пользователь сохранен в стор
         if (userData) {
             setEmail(userData.email);
             setUsername(userData.username);
@@ -30,12 +29,9 @@ const Profile = () => {
     }, [ userData]);
 
     const editProfile = (val) => {
-        // сохраняет предыдущие данные пользователя
         const newUser = { ...userData };
         for (const prop in val) {
-            // если новые данные не равны пустой строке или undefined
             if (val[prop] !== '' && val[prop] !== undefined) {
-                // то изменяет их
                 newUser[prop] = val[prop];
             }
         }

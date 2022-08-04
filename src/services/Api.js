@@ -1,34 +1,26 @@
 import axios from 'axios';
 
+import { baseUrl, headers } from '../constants';
+
 export const updateArticles = async (offset) => {
-    const articles = await axios.get(`https://blog.kata.academy/api/articles?limit=5&offset=${offset}`);
+    const articles = await axios.get(`${baseUrl}/articles?limit=5&offset=${offset}`);
     return articles.data;
 };
 
-export const getPostFull = async (slug, token) => {
-    const url = new URL(`https://blog.kata.academy/api/articles/${slug}`);
-
+export const getPostFull = async (slug) => {
+    const url = new URL(`${baseUrl}/articles/${slug}`);
     const response = await fetch(url, {
         method: 'GET',
-        headers: {
-            'Content-Type': 'application/json',
-            Authorization: `Token ${token}`,
-        },
+        headers,
     }).catch((err) => err.message);
     return response.json();
 };
 
-// добавляет новую статью
-export const postCreateArticle = async (newArticle, token) => {
-    const url = new URL('https://blog.kata.academy/api/articles');
+export const postCreateArticle = async (newArticle) => {
+    const url = new URL(`${baseUrl}/articles`);
 
     const body = {
         article: newArticle,
-    };
-
-    const headers = {
-        'Content-Type': 'application/json',
-        Authorization: `Token ${token}`,
     };
 
     const response = await fetch(url, {
@@ -40,30 +32,22 @@ export const postCreateArticle = async (newArticle, token) => {
     return response.json();
 };
 
-export const deleteArticle = async (slug, token) => {
-    const url = new URL(`https://blog.kata.academy/api/articles/${slug}`);
+export const deleteArticle = async (slug) => {
+    const url = new URL(`${baseUrl}/articles/${slug}`);
 
     const response = await fetch(url, {
         method: 'DELETE',
-        headers: {
-            'Content-Type': 'application/json',
-            Authorization: `Token ${token}`,
-        },
+        headers,
     }).catch((err) => err.message);
 
     return response;
 };
 
-export const putArticleUpdate = async (slug, modifiedArticle, token) => {
-    const url = new URL(`https://blog.kata.academy/api/articles/${slug}`);
+export const putArticleUpdate = async (slug, modifiedArticle) => {
+    const url = new URL(`${baseUrl}/articles/${slug}`);
 
     const body = {
         article: modifiedArticle,
-    };
-
-    const headers = {
-        'Content-Type': 'application/json',
-        Authorization: `Token ${token}`,
     };
 
     const response = await fetch(url, {
@@ -75,14 +59,8 @@ export const putArticleUpdate = async (slug, modifiedArticle, token) => {
     return response.json();
 };
 
-// добавить в избранно (поставить лайк)
-export const postAddFavorites = async (slug, token) => {
-    const url = new URL(`https://blog.kata.academy/api/articles/${slug}/favorite`);
-
-    const headers = {
-        'Content-Type': 'application/json',
-        Authorization: `Token ${token}`,
-    };
+export const postAddFavorites = async (slug) => {
+    const url = new URL(`${baseUrl}/articles/${slug}/favorite`);
 
     const response = await fetch(url, {
         method: 'POST',
@@ -92,16 +70,12 @@ export const postAddFavorites = async (slug, token) => {
     return response.json();
 };
 
-// удалить из избранного (удалить лайк)
-export const deleteFavorites = async (slug, token) => {
-    const url = new URL(`https://blog.kata.academy/api/articles/${slug}/favorite`);
+export const deleteFavorites = async (slug) => {
+    const url = new URL(`${baseUrl}/articles/${slug}/favorite`);
 
     const response = await fetch(url, {
         method: 'DELETE',
-        headers: {
-            'Content-Type': 'application/json',
-            Authorization: `Token ${token}`,
-        },
+        headers,
     }).catch((err) => err.message);
 
     return response.json();

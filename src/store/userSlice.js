@@ -3,7 +3,6 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 
 const baseStr = 'https://blog.kata.academy/api';
 
-// регитрация пользователя
 export const fetchUserRegistration = createAsyncThunk(
     'user/fetchUserRegistration',
     async function (newUser, { rejectWithValue }) {
@@ -28,8 +27,6 @@ export const fetchUserRegistration = createAsyncThunk(
     }
 );
 
-
-// авторизация пользователя
 export const fetchUserLogIn = createAsyncThunk('user/fetchUserLogIn', async function (newUser, { rejectWithValue }) {
     const url = new URL(`${baseStr}/users/login`);
     try {
@@ -51,7 +48,6 @@ export const fetchUserLogIn = createAsyncThunk('user/fetchUserLogIn', async func
     }
 });
 
-// обновление данных пользователя
 export const fetchUserUpdate = createAsyncThunk(
     'user/fetchUserUpdate',
     async function ({ newUser, token }, { rejectWithValue }) {
@@ -76,7 +72,6 @@ export const fetchUserUpdate = createAsyncThunk(
     }
 );
 
-// сохранение пользователя зарегистрирванного в системе
 export const fetchUserSave = createAsyncThunk('user/fetchUserSave', async function (token, { rejectWithValue }) {
     const url = new URL(`${baseStr}/user`);
     try {
@@ -102,47 +97,36 @@ const userSlice = createSlice({
     },
 
     reducers: {
-        // разлогинивание пользователя
         logOutUser(state) {
             state.userData = null;
             state.error = null;
         },
 
-        // обнуление ошибки
         errorNull(state) {
             state.error = null;
         },
     },
 
     extraReducers: {
-        // fetchUserRegistration
         [fetchUserRegistration.pending]: (state) => {
             state.error = null;
         },
         [fetchUserRegistration.fulfilled]: (state, action) => {
-            // если получен user
             if (action.payload.user) {
-                // записывает юзера в стор
                 state.userData = action.payload.user;
                 return;
             }
-            // если получены ошибки
             if (action.payload.errors) {
-                // создает строку ошибки
                 let errStr = '';
 
-                // обрабатывает ошибку 404
                 if (action.payload.errors.error) {
                     errStr += action.payload.errors.error.status;
                 } else {
-                    // возвращает массив ошибок из тела errors
                     const errArr = Object.entries(action.payload.errors);
-                    // накапливает сообщения об ошибках в строку ошибки
                     errArr.forEach((item) => {
                         errStr += `${item[0]}: ${item[1]} `;
                     });
                 }
-                // записывает сроку ошибки в стор
                 state.error = errStr;
             }
         },
@@ -150,27 +134,21 @@ const userSlice = createSlice({
             state.error = action.payload;
         },
 
-        // fetchUserLogIn
         [fetchUserLogIn.pending]: (state) => {
             state.error = null;
         },
         [fetchUserLogIn.fulfilled]: (state, action) => {
-            // если получен user
             if (action.payload.user) {
                 state.userData = action.payload.user;
                 return;
             }
-            // если получены ошибки
             if (action.payload.errors) {
 
-                // создает строку ошибки
                 let errStr = '';
 
-                // обрабатывает ошибку 404
                 if (action.payload.errors.error) {
                     errStr += action.payload.errors.error.status;
                 } else {
-                    // возвращает строку с ошибкой из тела errors
                     const errArr = Object.entries(action.payload.errors);
                     errStr = `${errArr[0][0]}: ${errArr[0][1]}`;
                 }
@@ -181,7 +159,6 @@ const userSlice = createSlice({
             state.error = action.payload;
         },
 
-        // fetchUserSave
         [fetchUserSave.pending]: (state) => {
             state.error = null;
         },
@@ -192,35 +169,26 @@ const userSlice = createSlice({
             state.error = action.payload;
         },
 
-        // fetchUserUpdate
         [fetchUserUpdate.pending]: (state) => {
             state.error = null;
         },
         [fetchUserUpdate.fulfilled]: (state, action) => {
-            // если получен user
             if (action.payload.user) {
-                // записывает юзера в стор
                 state.userData = action.payload.user;
                 return;
             }
-            // если получены ошибки
             if (action.payload.errors) {
 
-                // создает строку ошибки
                 let errStr = '';
 
-                // обрабатывает ошибку 404
                 if (action.payload.errors.error) {
                     errStr += action.payload.errors.error.status;
                 } else {
-                    // возвращает массив ошибок из тела errors
                     const errArr = Object.entries(action.payload.errors);
-                    // накапливает сообщения об ошибках в строку ошибки
                     errArr.forEach((item) => {
                         errStr += `${item[0]}: ${item[1]} `;
                     });
                 }
-                // записывает сроку ошибки в стор
                 state.error = errStr;
             }
         },

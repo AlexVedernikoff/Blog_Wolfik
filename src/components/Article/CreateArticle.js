@@ -16,7 +16,7 @@ function CreateArticle() {
             tagList: val.tagList.map((el) => el.trim()).filter((el) => el && el !== ''),
         };
 
-        postCreateArticle(newArticle, JSON.parse(localStorage.getItem('token')))
+        postCreateArticle(newArticle)
             .then((res) => {
                 if (res.article) {
                     setSuccessAlert(true);
@@ -24,7 +24,6 @@ function CreateArticle() {
             });
     };
 
-    // при закрытии сообщения об успехе или ошибке
     const atCloseAletr = () => {
         setSuccessAlert(false);
     };

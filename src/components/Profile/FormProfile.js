@@ -21,7 +21,6 @@ function FormProfile({ editProfile }) {
                     label="Username"
                     rules={[
                         {
-                            required: true,
                             message: 'Your username must be between 3 and 20 characters long.',
                             min: 3,
                             max: 20,
@@ -37,7 +36,6 @@ function FormProfile({ editProfile }) {
                     rules={[
                         {
                             type: 'email',
-                            required: true,
                             message: 'Please input your email!',
                         },
                     ]}
@@ -74,7 +72,7 @@ function FormProfile({ editProfile }) {
 
                 <Form.Item className='ant-form-item-control-input-content'>
                     <Button type="primary" htmlType="submit" className='login-form-button'>
-                    Save
+                        Save
                     </Button>
                 </Form.Item>
             </Form>

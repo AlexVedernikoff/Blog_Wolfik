@@ -19,7 +19,6 @@ export const PostItem = ({ post, controllerFlag, confirmDeletion }) => {
     const tags = tagList.map((el, i) =>  <Tag className='post_tag' key={i}> {el} </Tag>);
     const authorAvatar = author.image;
     const avatar = authorAvatar === 'null' ? photo : authorAvatar;
-    const token = JSON.parse(localStorage.getItem('token')) ? JSON.parse(localStorage.getItem('token')) : '';
 
     const useStateUser = () => {
         const stateUserst = useSelector((state) => state.user);
@@ -28,32 +27,25 @@ export const PostItem = ({ post, controllerFlag, confirmDeletion }) => {
 
     const { userData } = useStateUser();
 
-    // переменные для работы с лайками
     const [like, setLike] = useState(favorited);
     const [likeIcon, setLikeIcon] = useState(nolike);
     const [likeCount, setLikeCount] = useState(favoritesCount);
     const [isLikeDsabled, setLikeDsabled] = useState(true);
 
     useEffect(() => {
-        // если есть лайк меняет иконку
         if (post.favorited) {
             setLike(true);
             setLikeIcon(likeic);
         }
 
-        // если пользователь авторизован
         if (userData) {
-            // то кнопка лайка разблокирована
             setLikeDsabled(false);
         }
     }, [userData, post.favorited]);
 
     const onlikeClick = () => {
-        // если лайк не стоит
         if (!like) {
-            // добавляет в избранное
-            postAddFavorites(slug, token).then((res) => {
-                // при получении корректного ответа сервера изменяет иконку и счетчик
+            postAddFavorites(slug).then((res) => {
                 if (res.article.favorited) {
                     setLike(true);
                     setLikeIcon(likeic);
@@ -61,11 +53,8 @@ export const PostItem = ({ post, controllerFlag, confirmDeletion }) => {
                 }
             });
         }
-        // если лайк стоит
         else {
-            // то удаляет из избранного
-            deleteFavorites(slug, token).then((res) => {
-                // при получении корректного ответа сервера изменяет иконку и счетчик
+            deleteFavorites(slug).then((res) => {
                 if (!res.article.favorited) {
                     setLike(false);
                     setLikeIcon(nolike);
